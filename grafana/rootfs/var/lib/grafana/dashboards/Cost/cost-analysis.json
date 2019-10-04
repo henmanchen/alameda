@@ -44,7 +44,7 @@
       "type": "text"
     },
     {
-      "content": "<table style=\"height:100%;width:100%\">\n  <tr>\n    <td>\n      <div id=\"config_cost\" type=\"text/JavaScript\" style=\"text-align:center;font-size:30px; color:black\"></div>\n    </td>\n  </tr>\n</table>\n<script>\n  var cost = `$${current_cost}<div style=\"font-size:18px; color:black\">per month</div>`;\n  document.getElementById('config_cost').innerHTML = cost;\n  document.getElementById('config_cost').parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.style.backgroundColor = 'cadetblue'\n</script>",
+      "content": "<table style=\"height:100%;width:100%\">\n  <tr>\n    <td>\n      <div id=\"config_cost\" type=\"text/JavaScript\" style=\"text-align:center;font-size:30px; color:black\"></div>\n    </td>\n  </tr>\n</table>\n<script>\n  var cost = `$${$current_cost.toFixed(2)}<div style=\"font-size:18px; color:black\">per month</div>`;\n  document.getElementById('config_cost').innerHTML = cost;\n  document.getElementById('config_cost').parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.style.backgroundColor = 'cadetblue'\n</script>",
       "gridPos": {
         "h": 4,
         "w": 4,
