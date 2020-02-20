@@ -250,6 +250,7 @@
         {
           "expr": "topk(5, sum(rate(container_cpu_usage_seconds_total{image!=\"\",name=~\"^k8s_.*\",container_name!=\"POD\"}[2m])\r\n* on (namespace, pod_name) group_left (node) label_replace(node_namespace_pod:kube_pod_info:{node=\"$node\"}, \"pod_name\", \"$1\", \"pod\", \"(.*)\"))  by (pod_name))",
           "format": "time_series",
+          "hide": false,
           "instant": false,
           "interval": "",
           "intervalFactor": 2,
@@ -257,6 +258,13 @@
           "metric": "container_cpu_usage_seconds_total",
           "refId": "A",
           "step": 4
+        },
+        {
+          "expr": "topk(5, sum(rate(container_cpu_usage_seconds_total{image!=\"\",name=~\"^k8s_.*\",container!=\"POD\"}[2m])\r\n* on (namespace, pod) group_left (node) label_replace(node_namespace_pod:kube_pod_info:{node=\"$node\"}, \"pod_name\", \"$1\", \"pod\", \"(.*)\"))  by (pod))",
+          "hide": false,
+          "intervalFactor": 2,
+          "legendFormat": "{{ pod }}",
+          "refId": "B"
         }
       ],
       "thresholds": [],
@@ -512,10 +520,18 @@
         {
           "expr": "topk(5, sum(container_memory_usage_bytes{image!=\"\"}\n* on (namespace, pod_name) group_left (node) label_replace(node_namespace_pod:kube_pod_info:{node=\"$node\"}, \"pod_name\", \"$1\", \"pod\", \"(.*)\"))  by (pod_name))\n",
           "format": "time_series",
+          "hide": false,
           "intervalFactor": 2,
           "legendFormat": "{{pod_name}}",
           "refId": "A",
           "step": 10
+        },
+        {
+          "expr": "topk(5, sum(container_memory_usage_bytes{image!=\"\"}\n* on (namespace, pod) group_left (node) label_replace(node_namespace_pod:kube_pod_info:{node=\"$node\"}, \"pod_name\", \"$1\", \"pod\", \"(.*)\"))  by (pod))",
+          "hide": false,
+          "intervalFactor": 2,
+          "legendFormat": "{{pod}}",
+          "refId": "B"
         }
       ],
       "thresholds": [],
@@ -851,6 +867,38 @@
           "thresholds": [],
           "type": "number",
           "unit": "short"
+        },
+        {
+          "alias": "CPU Usage",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 3,
+          "mappingType": 1,
+          "pattern": "Value #H",
+          "thresholds": [],
+          "type": "number",
+          "unit": "short"
+        },
+        {
+          "alias": "Mem Usage",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 0,
+          "mappingType": 1,
+          "pattern": "Value #I",
+          "thresholds": [],
+          "type": "number",
+          "unit": "decbytes"
         }
       ],
       "targets": [
@@ -861,6 +909,13 @@
           "instant": true,
           "intervalFactor": 1,
           "refId": "C"
+        },
+        {
+          "expr": "sum(label_replace(namespace_pod_name_container_name:container_cpu_usage_seconds_total:sum_rate{container!=\"\",container!=\"POD\",pod!=\"\"}\r, \"pod_name\", \"$1\", \"pod\", \"(.*)\")\n* on (namespace, pod) group_left (node) label_replace(node_namespace_pod:kube_pod_info:{node=\"$node\"}, \"pod_name\", \"$1\", \"pod\", \"(.*)\")) by (pod_name)",
+          "format": "table",
+          "hide": false,
+          "instant": true,
+          "refId": "H"
         },
         {
           "expr": "sum(label_replace(\nsum(avg_over_time(kube_pod_container_resource_requests_cpu_cores{container!=\"\",container!=\"POD\",node=\"$node\"}[10m])) by (pod), \n\"pod_name\",\"$1\",\"pod\",\"(.+)\")\nor up * 0 > 0\n) by (pod_name)",
@@ -885,6 +940,13 @@
           "instant": true,
           "intervalFactor": 1,
           "refId": "D"
+        },
+        {
+          "expr": "sum(label_replace(container_memory_usage_bytes{container!=\"POD\", container!=\"\"}\r, \"pod_name\", \"$1\", \"pod\", \"(.*)\")\n* on (namespace, pod) group_left (node) label_replace(node_namespace_pod:kube_pod_info:{node=\"$node\"}, \"pod_name\", \"$1\", \"pod\", \"(.*)\")\r\n) by (pod_name)",
+          "format": "table",
+          "hide": false,
+          "instant": true,
+          "refId": "I"
         },
         {
           "expr": "sum(label_replace(label_replace(\nsum(avg_over_time(kube_pod_container_resource_requests_memory_bytes{container!=\"\",container!=\"POD\",node=\"$node\"}[10m])) by (pod),\n\"container_name\",\"$1\",\"container\",\"(.+)\"), \"pod_name\",\"$1\",\"pod\",\"(.+)\")\nor up * 0 > 0\n) by (pod_name)\n",
@@ -919,7 +981,7 @@
     }
   ],
   "refresh": "5m",
-  "schemaVersion": 16,
+  "schemaVersion": 20,
   "style": "dark",
   "tags": [],
   "templating": {

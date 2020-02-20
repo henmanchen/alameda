@@ -699,6 +699,16 @@
         },
         {
           "datasource": "Prometheus",
+          "expr": "sum (1000 * avg_over_time(namespace_pod_name_container_name:container_cpu_usage_seconds_total:sum_rate{namespace=~\"$namespace_ns\", namespace!=\"\", pod!=\"\",container!=\"POD\"}[3600s]))",
+          "format": "time_series",
+          "hide": false,
+          "interval": "3600s",
+          "intervalFactor": 1,
+          "legendFormat": "Observation : CPU Usage",
+          "refId": "L"
+        },
+        {
+          "datasource": "Prometheus",
           "expr": "sum (1000 * avg_over_time(namespace_pod_name_container_name:container_cpu_usage_seconds_total:sum_rate{namespace=~\"$app_ns\", namespace!=\"\", pod_name=~\"($deployment_controller)-[0-9a-z]{8,10}-[0-9a-z]*$|($deploymentConfig_controller)-[0-9]{0,7}-[0-9a-z]*$|($statefulset_controller)-[0-9]+$\", pod_name!=\"\", container_name!=\"POD\"}[3600s]))",
           "format": "time_series",
           "hide": false,
@@ -709,6 +719,16 @@
         },
         {
           "datasource": "Prometheus",
+          "expr": "sum (1000 * avg_over_time(namespace_pod_name_container_name:container_cpu_usage_seconds_total:sum_rate{namespace=~\"$app_ns\", namespace!=\"\", pod=~\"($deployment_controller)-[0-9a-z]{8,10}-[0-9a-z]*$|($deploymentConfig_controller)-[0-9]{0,7}-[0-9a-z]*$|($statefulset_controller)-[0-9]+$\", pod!=\"\", container!=\"POD\"}[3600s]))",
+          "format": "time_series",
+          "hide": false,
+          "interval": "3600s",
+          "intervalFactor": 1,
+          "legendFormat": "Observation : CPU Usage",
+          "refId": "M"
+        },
+        {
+          "datasource": "Prometheus",
           "expr": "sum (1000 * avg_over_time(namespace_pod_name_container_name:container_cpu_usage_seconds_total:sum_rate{namespace=~\"$controller_ns\", namespace!=\"\", pod_name=~\"($selected_deployment_controller)-[0-9a-z]{8,10}-[0-9a-z]*$|($selected_deploymentConfig_controller)-[0-9]{0,7}-[0-9a-z]*$|($selected_statefulset_controller)-[0-9]+$\", pod_name!=\"\", container_name!=\"POD\"}[3600s]))",
           "format": "time_series",
           "hide": false,
@@ -716,6 +736,16 @@
           "intervalFactor": 1,
           "legendFormat": "Observation : CPU Usage",
           "refId": "K"
+        },
+        {
+          "datasource": "Prometheus",
+          "expr": "sum (1000 * avg_over_time(namespace_pod_name_container_name:container_cpu_usage_seconds_total:sum_rate{namespace=~\"$controller_ns\", namespace!=\"\", pod=~\"($selected_deployment_controller)-[0-9a-z]{8,10}-[0-9a-z]*$|($selected_deploymentConfig_controller)-[0-9]{0,7}-[0-9a-z]*$|($selected_statefulset_controller)-[0-9]+$\", pod!=\"\", container!=\"POD\"}[3600s]))",
+          "format": "time_series",
+          "hide": false,
+          "interval": "3600s",
+          "intervalFactor": 1,
+          "legendFormat": "Observation : CPU Usage",
+          "refId": "N"
         },
         {
           "alias": "Prediction: CPU Usage",
@@ -1145,6 +1175,16 @@
         },
         {
           "datasource": "Prometheus",
+          "expr": "round(sum(avg_over_time(container_memory_usage_bytes{namespace=~\"$namespace_ns\", namespace!=\"\", pod!=\"\", container!=\"\",container!=\"POD\"}[3600s])))",
+          "format": "time_series",
+          "hide": false,
+          "interval": "3600s",
+          "intervalFactor": 1,
+          "legendFormat": "Observation: Memory Usage",
+          "refId": "L"
+        },
+        {
+          "datasource": "Prometheus",
           "expr": "round(sum(avg_over_time(container_memory_usage_bytes{namespace=~\"$app_ns\", namespace!=\"\", pod_name=~\"($deployment_controller)-[0-9a-z]{8,10}-[0-9a-z]*$|($deploymentConfig_controller)-[0-9]{0,7}-[0-9a-z]*$|($statefulset_controller)-[0-9]+$\", pod_name!=\"\", container_name!=\"POD\", container_name!=\"\"}[3600s])))",
           "format": "time_series",
           "hide": false,
@@ -1155,6 +1195,16 @@
         },
         {
           "datasource": "Prometheus",
+          "expr": "round(sum(avg_over_time(container_memory_usage_bytes{namespace=~\"$app_ns\", namespace!=\"\", pod=~\"($deployment_controller)-[0-9a-z]{8,10}-[0-9a-z]*$|($deploymentConfig_controller)-[0-9]{0,7}-[0-9a-z]*$|($statefulset_controller)-[0-9]+$\", pod!=\"\", container!=\"POD\", container!=\"\"}[3600s])))",
+          "format": "time_series",
+          "hide": false,
+          "interval": "3600s",
+          "intervalFactor": 1,
+          "legendFormat": "Observation: Memory Usage",
+          "refId": "M"
+        },
+        {
+          "datasource": "Prometheus",
           "expr": "round(sum(avg_over_time(container_memory_usage_bytes{namespace=~\"$controller_ns\", namespace!=\"\", pod_name=~\"($selected_deployment_controller)-[0-9a-z]{8,10}-[0-9a-z]*$|($selected_deploymentConfig_controller)-[0-9]{0,7}-[0-9a-z]*$|($selected_statefulset_controller)-[0-9]+$\", pod_name!=\"\", container_name!=\"POD\", container_name!=\"\"}[3600s])))",
           "format": "time_series",
           "hide": false,
@@ -1162,6 +1212,16 @@
           "intervalFactor": 1,
           "legendFormat": "Observation: Memory Usage",
           "refId": "K"
+        },
+        {
+          "datasource": "Prometheus",
+          "expr": "round(sum(avg_over_time(container_memory_usage_bytes{namespace=~\"$controller_ns\", namespace!=\"\", pod=~\"($selected_deployment_controller)-[0-9a-z]{8,10}-[0-9a-z]*$|($selected_deploymentConfig_controller)-[0-9]{0,7}-[0-9a-z]*$|($selected_statefulset_controller)-[0-9]+$\", pod!=\"\", container!=\"POD\", container!=\"\"}[3600s])))",
+          "format": "time_series",
+          "hide": false,
+          "interval": "3600s",
+          "intervalFactor": 1,
+          "legendFormat": "Observation: Memory Usage",
+          "refId": "N"
         },
         {
           "alias": "Prediction: Memory Usage",
@@ -1610,6 +1670,16 @@
         },
         {
           "datasource": "Prometheus",
+          "expr": "sum( 1000 * avg_over_time(namespace_pod_name_container_name:container_cpu_usage_seconds_total:sum_rate{namespace=~\"$namespace_ns\", namespace!=\"\", pod!=\"\",container!=\"POD\"}[21600s]))",
+          "format": "time_series",
+          "hide": false,
+          "interval": "21600s",
+          "intervalFactor": 1,
+          "legendFormat": "Observation : CPU Usage",
+          "refId": "L"
+        },
+        {
+          "datasource": "Prometheus",
           "expr": "sum( 1000 * avg_over_time(namespace_pod_name_container_name:container_cpu_usage_seconds_total:sum_rate{namespace=~\"$app_ns\", namespace!=\"\", pod_name=~\"($deployment_controller)-[0-9a-z]{8,10}-[0-9a-z]*$|($deploymentConfig_controller)-[0-9]{0,7}-[0-9a-z]*$|($statefulset_controller)-[0-9]+$\", pod_name!=\"\", container_name!=\"POD\"}[21600s]))",
           "format": "time_series",
           "hide": false,
@@ -1620,6 +1690,16 @@
         },
         {
           "datasource": "Prometheus",
+          "expr": "sum( 1000 * avg_over_time(namespace_pod_name_container_name:container_cpu_usage_seconds_total:sum_rate{namespace=~\"$app_ns\", namespace!=\"\", pod=~\"($deployment_controller)-[0-9a-z]{8,10}-[0-9a-z]*$|($deploymentConfig_controller)-[0-9]{0,7}-[0-9a-z]*$|($statefulset_controller)-[0-9]+$\", pod!=\"\", container!=\"POD\"}[21600s]))",
+          "format": "time_series",
+          "hide": false,
+          "interval": "21600s",
+          "intervalFactor": 1,
+          "legendFormat": "Observation : CPU Usage",
+          "refId": "M"
+        },
+        {
+          "datasource": "Prometheus",
           "expr": "sum( 1000 * avg_over_time(namespace_pod_name_container_name:container_cpu_usage_seconds_total:sum_rate{namespace=~\"$controller_ns\", namespace!=\"\", pod_name=~\"($selected_deployment_controller)-[0-9a-z]{8,10}-[0-9a-z]*$|($selected_deploymentConfig_controller)-[0-9]{0,7}-[0-9a-z]*$|($selected_statefulset_controller)-[0-9]+$\", pod_name!=\"\", container_name!=\"POD\"}[21600s]))",
           "format": "time_series",
           "hide": false,
@@ -1627,6 +1707,16 @@
           "intervalFactor": 1,
           "legendFormat": "Observation : CPU Usage",
           "refId": "K"
+        },
+        {
+          "datasource": "Prometheus",
+          "expr": "sum( 1000 * avg_over_time(namespace_pod_name_container_name:container_cpu_usage_seconds_total:sum_rate{namespace=~\"$controller_ns\", namespace!=\"\", pod=~\"($selected_deployment_controller)-[0-9a-z]{8,10}-[0-9a-z]*$|($selected_deploymentConfig_controller)-[0-9]{0,7}-[0-9a-z]*$|($selected_statefulset_controller)-[0-9]+$\", pod!=\"\", container!=\"POD\"}[21600s]))",
+          "format": "time_series",
+          "hide": false,
+          "interval": "21600s",
+          "intervalFactor": 1,
+          "legendFormat": "Observation : CPU Usage",
+          "refId": "N"
         },
         {
           "alias": "Prediction: CPU Usage",
@@ -2054,6 +2144,15 @@
         },
         {
           "datasource": "Prometheus",
+          "expr": "round(sum(avg_over_time(container_memory_usage_bytes{namespace=~\"$namespace_ns\", namespace!=\"\", pod!=\"\", container!=\"\",container!=\"POD\"}[21600s])))",
+          "format": "time_series",
+          "interval": "21600s",
+          "intervalFactor": 1,
+          "legendFormat": "Observation: Memory Usage",
+          "refId": "L"
+        },
+        {
+          "datasource": "Prometheus",
           "expr": "round(sum(avg_over_time(container_memory_usage_bytes{namespace=~\"$app_ns\", namespace!=\"\", pod_name=~\"($deployment_controller)-[0-9a-z]{8,10}-[0-9a-z]*$|($deploymentConfig_controller)-[0-9]{0,7}-[0-9a-z]*$|($statefulset_controller)-[0-9]+$\", pod_name!=\"\", container_name!=\"POD\", container_name!=\"\"}[21600s])))",
           "format": "time_series",
           "interval": "21600s",
@@ -2063,12 +2162,30 @@
         },
         {
           "datasource": "Prometheus",
+          "expr": "round(sum(avg_over_time(container_memory_usage_bytes{namespace=~\"$app_ns\", namespace!=\"\", pod=~\"($deployment_controller)-[0-9a-z]{8,10}-[0-9a-z]*$|($deploymentConfig_controller)-[0-9]{0,7}-[0-9a-z]*$|($statefulset_controller)-[0-9]+$\", pod!=\"\", container!=\"POD\", container!=\"\"}[21600s])))",
+          "format": "time_series",
+          "interval": "21600s",
+          "intervalFactor": 1,
+          "legendFormat": "Observation: Memory Usage",
+          "refId": "M"
+        },
+        {
+          "datasource": "Prometheus",
           "expr": "round(sum(avg_over_time(container_memory_usage_bytes{namespace=~\"$controller_ns\", namespace!=\"\", pod_name=~\"($selected_deployment_controller)-[0-9a-z]{8,10}-[0-9a-z]*$|($selected_deploymentConfig_controller)-[0-9]{0,7}-[0-9a-z]*$|($selected_statefulset_controller)-[0-9]+$\", pod_name!=\"\", container_name!=\"POD\", container_name!=\"\"}[21600s])))",
           "format": "time_series",
           "interval": "21600s",
           "intervalFactor": 1,
           "legendFormat": "Observation: Memory Usage",
           "refId": "K"
+        },
+        {
+          "datasource": "Prometheus",
+          "expr": "round(sum(avg_over_time(container_memory_usage_bytes{namespace=~\"$controller_ns\", namespace!=\"\", pod=~\"($selected_deployment_controller)-[0-9a-z]{8,10}-[0-9a-z]*$|($selected_deploymentConfig_controller)-[0-9]{0,7}-[0-9a-z]*$|($selected_statefulset_controller)-[0-9]+$\", pod!=\"\", container!=\"POD\", container!=\"\"}[21600s])))",
+          "format": "time_series",
+          "interval": "21600s",
+          "intervalFactor": 1,
+          "legendFormat": "Observation: Memory Usage",
+          "refId": "N"
         },
         {
           "alias": "Prediction: Memory Usage",
@@ -2516,6 +2633,15 @@
         },
         {
           "datasource": "Prometheus",
+          "expr": "sum( 1000 * avg_over_time(namespace_pod_name_container_name:container_cpu_usage_seconds_total:sum_rate{namespace=~\"$namespace_ns\", namespace!=\"\", pod!=\"\",container!=\"POD\"}[86400s]))",
+          "format": "time_series",
+          "interval": "86400s",
+          "intervalFactor": 1,
+          "legendFormat": "Observation : CPU Usage",
+          "refId": "L"
+        },
+        {
+          "datasource": "Prometheus",
           "expr": "sum( 1000 * avg_over_time(namespace_pod_name_container_name:container_cpu_usage_seconds_total:sum_rate{namespace=~\"$app_ns\", namespace!=\"\", pod_name=~\"($deployment_controller)-[0-9a-z]{8,10}-[0-9a-z]*$|($deploymentConfig_controller)-[0-9]{0,7}-[0-9a-z]*$|($statefulset_controller)-[0-9]+$\", pod_name!=\"\", container_name!=\"POD\"}[86400s]))",
           "format": "time_series",
           "interval": "86400s",
@@ -2525,12 +2651,30 @@
         },
         {
           "datasource": "Prometheus",
+          "expr": "sum( 1000 * avg_over_time(namespace_pod_name_container_name:container_cpu_usage_seconds_total:sum_rate{namespace=~\"$app_ns\", namespace!=\"\", pod=~\"($deployment_controller)-[0-9a-z]{8,10}-[0-9a-z]*$|($deploymentConfig_controller)-[0-9]{0,7}-[0-9a-z]*$|($statefulset_controller)-[0-9]+$\", pod!=\"\", container!=\"POD\"}[86400s]))",
+          "format": "time_series",
+          "interval": "86400s",
+          "intervalFactor": 1,
+          "legendFormat": "Observation : CPU Usage",
+          "refId": "M"
+        },
+        {
+          "datasource": "Prometheus",
           "expr": "sum( 1000 * avg_over_time(namespace_pod_name_container_name:container_cpu_usage_seconds_total:sum_rate{namespace=~\"$controller_ns\", namespace!=\"\", pod_name=~\"($selected_deployment_controller)-[0-9a-z]{8,10}-[0-9a-z]*$|($selected_deploymentConfig_controller)-[0-9]{0,7}-[0-9a-z]*$|($selected_statefulset_controller)-[0-9]+$\", pod_name!=\"\", container_name!=\"POD\"}[86400s]))",
           "format": "time_series",
           "interval": "86400s",
           "intervalFactor": 1,
           "legendFormat": "Observation : CPU Usage",
           "refId": "K"
+        },
+        {
+          "datasource": "Prometheus",
+          "expr": "sum( 1000 * avg_over_time(namespace_pod_name_container_name:container_cpu_usage_seconds_total:sum_rate{namespace=~\"$controller_ns\", namespace!=\"\", pod=~\"($selected_deployment_controller)-[0-9a-z]{8,10}-[0-9a-z]*$|($selected_deploymentConfig_controller)-[0-9]{0,7}-[0-9a-z]*$|($selected_statefulset_controller)-[0-9]+$\", pod!=\"\", container!=\"POD\"}[86400s]))",
+          "format": "time_series",
+          "interval": "86400s",
+          "intervalFactor": 1,
+          "legendFormat": "Observation : CPU Usage",
+          "refId": "N"
         },
         {
           "alias": "Prediction: CPU Usage",
@@ -2958,6 +3102,15 @@
         },
         {
           "datasource": "Prometheus",
+          "expr": "round(sum(avg_over_time(container_memory_usage_bytes{namespace=~\"$namespace_ns\", namespace!=\"\", pod!=\"\", container!=\"\",container!=\"POD\"}[86400s])))",
+          "format": "time_series",
+          "interval": "86400s",
+          "intervalFactor": 1,
+          "legendFormat": "Observation: Memory Usage",
+          "refId": "L"
+        },
+        {
+          "datasource": "Prometheus",
           "expr": "round(sum(avg_over_time(container_memory_usage_bytes{namespace=~\"$app_ns\", namespace!=\"\", pod_name=~\"($deployment_controller)-[0-9a-z]{8,10}-[0-9a-z]*$|($deploymentConfig_controller)-[0-9]{0,7}-[0-9a-z]*$|($statefulset_controller)-[0-9]+$\", pod_name!=\"\", container_name!=\"POD\", container_name!=\"\"}[86400s])))",
           "format": "time_series",
           "interval": "86400s",
@@ -2967,12 +3120,30 @@
         },
         {
           "datasource": "Prometheus",
+          "expr": "round(sum(avg_over_time(container_memory_usage_bytes{namespace=~\"$app_ns\", namespace!=\"\", pod=~\"($deployment_controller)-[0-9a-z]{8,10}-[0-9a-z]*$|($deploymentConfig_controller)-[0-9]{0,7}-[0-9a-z]*$|($statefulset_controller)-[0-9]+$\", pod!=\"\", container!=\"POD\", container!=\"\"}[86400s])))",
+          "format": "time_series",
+          "interval": "86400s",
+          "intervalFactor": 1,
+          "legendFormat": "Observation: Memory Usage",
+          "refId": "M"
+        },
+        {
+          "datasource": "Prometheus",
           "expr": "round(sum(avg_over_time(container_memory_usage_bytes{namespace=~\"$controller_ns\", namespace!=\"\", pod_name=~\"($selected_deployment_controller)-[0-9a-z]{8,10}-[0-9a-z]*$|($selected_deploymentConfig_controller)-[0-9]{0,7}-[0-9a-z]*$|($selected_statefulset_controller)-[0-9]+$\", pod_name!=\"\", container_name!=\"POD\", container_name!=\"\"}[86400s])))",
           "format": "time_series",
           "interval": "86400s",
           "intervalFactor": 1,
           "legendFormat": "Observation: Memory Usage",
           "refId": "K"
+        },
+        {
+          "datasource": "Prometheus",
+          "expr": "round(sum(avg_over_time(container_memory_usage_bytes{namespace=~\"$controller_ns\", namespace!=\"\", pod=~\"($selected_deployment_controller)-[0-9a-z]{8,10}-[0-9a-z]*$|($selected_deploymentConfig_controller)-[0-9]{0,7}-[0-9a-z]*$|($selected_statefulset_controller)-[0-9]+$\", pod!=\"\", container!=\"POD\", container!=\"\"}[86400s])))",
+          "format": "time_series",
+          "interval": "86400s",
+          "intervalFactor": 1,
+          "legendFormat": "Observation: Memory Usage",
+          "refId": "N"
         },
         {
           "alias": "Prediction: Memory Usage",

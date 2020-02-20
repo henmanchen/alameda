@@ -1090,6 +1090,16 @@
           "refId": "C"
         },
         {
+          "datasource": "Prometheus",
+          "expr": "1000 * sum(max_over_time(namespace_pod_name_container_name:container_cpu_usage_seconds_total:sum_rate{namespace=~\"$controller_ns\", namespace!=\"\", pod=~\"($deployment_controller)-[0-9a-z]{8,10}-[0-9a-z]*$|($deploymentConfig_controller)-[0-9]{0,7}-[0-9a-z]*$|($statefulset_controller)-[0-9]+$\", pod!=\"\",container!=\"POD\"}[30s]))",
+          "format": "time_series",
+          "hide": false,
+          "instant": false,
+          "intervalFactor": 1,
+          "legendFormat": "Observation : CPU Usage",
+          "refId": "O"
+        },
+        {
           "alias": "Observation : current CPU limit",
           "datasource": "InfluxDB",
           "groupBy": [
@@ -1449,6 +1459,16 @@
           "intervalFactor": 1,
           "legendFormat": "Observation : Memory Usage",
           "refId": "C"
+        },
+        {
+          "datasource": "Prometheus",
+          "expr": "round(sum(max_over_time(container_memory_usage_bytes{namespace=~\"$controller_ns\", namespace!=\"\", pod=~\"($deployment_controller)-[0-9a-z]{8,10}-[0-9a-z]*$|($deploymentConfig_controller)-[0-9]{0,7}-[0-9a-z]*$|($statefulset_controller)-[0-9]+$\", pod!=\"\", container!=\"POD\", container!=\"\"}[30s])))",
+          "format": "time_series",
+          "hide": false,
+          "instant": false,
+          "intervalFactor": 1,
+          "legendFormat": "Observation : Memory Usage",
+          "refId": "G"
         },
         {
           "alias": "Observation : current memory limit",
